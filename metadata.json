@@ -1,0 +1,6 @@
+{
+  "name": "SME Centre Advisor CRM",
+  "description": "Enterprise relationship management, automated follow-ups, Singapore Business Directory integration, and AI meeting minutes for SME Centre business advisors.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,596 @@
+import { Advisor, SMECompany, Lead, MeetingNote, FollowUpAutomation, CommunicationLog, SgpDirectoryEntity } from '../types/crm';
+
+export const INITIAL_ADVISORS: Advisor[] = [
+  {
+    id: 'adv-001',
+    name: 'Marcus Tan Eng Hwee',
+    email: 'marcus.tan@smecentre.org.sg',
+    role: 'Super Admin / Centre Director',
+    department: 'Executive Leadership & Strategy',
+    phone: '+65 6826 3001',
+    active: true,
+    zoomConnected: true,
+    zoomPersonalId: '942-831-2091',
+    outlookConnected: true,
+    outlookEmail: 'marcus.tan@smecentre.org.sg',
+    assignedSmeCount: 28,
+    totalGrantsFacilitated: 1450000,
+    avatarUrl: '/src/assets/images/advisor_avatar_marcus_1791420607784.jpg',
+    createdAt: '2023-01-15'
+  },
+  {
+    id: 'adv-002',
+    name: 'Sarah Lim Shu Min',
+    email: 'sarah.lim@smecentre.org.sg',
+    role: 'Senior Business Advisor',
+    department: 'Digitalisation & Capability Upgrading',
+    phone: '+65 6826 3042',
+    active: true,
+    zoomConnected: true,
+    zoomPersonalId: '811-920-4389',
+    outlookConnected: true,
+    outlookEmail: 'sarah.lim@smecentre.org.sg',
+    assignedSmeCount: 42,
+    totalGrantsFacilitated: 980000,
+    avatarUrl: '/src/assets/images/advisor_avatar_sarah_1791420593183.jpg',
+    createdAt: '2023-04-10'
+  },
+  {
+    id: 'adv-003',
+    name: 'Kenneth Goh Wei Liang',
+    email: 'kenneth.goh@smecentre.org.sg',
+    role: 'Business Advisor',
+    department: 'Productivity & Automation',
+    phone: '+65 6826 3055',
+    active: true,
+    zoomConnected: true,
+    zoomPersonalId: '632-419-7812',
+    outlookConnected: true,
+    outlookEmail: 'kenneth.goh@smecentre.org.sg',
+    assignedSmeCount: 35,
+    totalGrantsFacilitated: 620000,
+    createdAt: '2023-09-01'
+  },
+  {
+    id: 'adv-004',
+    name: 'Nurul Huda Binte Rahim',
+    email: 'nurul.huda@smecentre.org.sg',
+    role: 'Associate Advisor',
+    department: 'Market Access & Overseas Expansion',
+    phone: '+65 6826 3068',
+    active: true,
+    zoomConnected: false,
+    zoomPersonalId: '519-830-1124',
+    outlookConnected: true,
+    outlookEmail: 'nurul.huda@smecentre.org.sg',
+    assignedSmeCount: 19,
+    totalGrantsFacilitated: 240000,
+    createdAt: '2024-02-15'
+  }
+];
+
+export const INITIAL_COMPANIES: SMECompany[] = [
+  {
+    id: 'sme-001',
+    uen: '201827491G',
+    legalName: 'Apex BioTech Solutions Pte. Ltd.',
+    tradeName: 'Apex BioTech',
+    industry: 'Biomedical & Healthcare',
+    ssicCode: '72101',
+    ssicDescription: 'Research and experimental development on biotechnology, life and medical sciences',
+    incorporationDate: '2018-08-14',
+    paidUpCapital: 'SGD 250,000',
+    registeredAddress: '11 Biopolis Way, #06-03 Helios, Singapore 138667',
+    postalCode: '138667',
+    employeeCount: 18,
+    annualRevenue: 'SGD 1,850,000',
+    contactPersonName: 'Dr. Raymond Chen',
+    contactDesignation: 'Founder & Managing Director',
+    contactEmail: 'raymond.chen@apexbio.com.sg',
+    contactPhone: '+65 9123 4567',
+    status: 'Active Advisory',
+    assignedAdvisorId: 'adv-002',
+    assignedAdvisorName: 'Sarah Lim Shu Min',
+    sgpVerified: true,
+    tags: ['Biotech', 'EDG Applicant', 'IP Strategy'],
+    notes: 'Seeking Enterprise Development Grant (EDG) for automation and intellectual property commercialization in ASEAN.',
+    createdAt: '2024-03-10',
+    updatedAt: '2024-10-02'
+  },
+  {
+    id: 'sme-002',
+    uen: '201712849G',
+    legalName: 'Bread & Butter Culinary Pte. Ltd.',
+    tradeName: 'Artisan Oven Bakeries',
+    industry: 'Food & Beverage',
+    ssicCode: '10712',
+    ssicDescription: 'Manufacture of bread, cakes and confectionery (wholesale)',
+    incorporationDate: '2017-05-19',
+    paidUpCapital: 'SGD 100,000',
+    registeredAddress: '18 Chin Bee Avenue, #03-01 FoodAxis, Singapore 619934',
+    postalCode: '619934',
+    employeeCount: 32,
+    annualRevenue: 'SGD 3,200,000',
+    contactPersonName: 'Clara Ong Hui Lin',
+    contactDesignation: 'Co-Founder & Head of Operations',
+    contactEmail: 'clara.ong@artisanoven.sg',
+    contactPhone: '+65 9876 5432',
+    status: 'Active Advisory',
+    assignedAdvisorId: 'adv-003',
+    assignedAdvisorName: 'Kenneth Goh Wei Liang',
+    sgpVerified: true,
+    tags: ['F&B', 'PSG ERP', 'Central Kitchen'],
+    notes: 'Planning automated dough portioning line and cloud ERP implementation under Productivity Solutions Grant (PSG).',
+    createdAt: '2024-04-18',
+    updatedAt: '2024-09-28'
+  },
+  {
+    id: 'sme-003',
+    uen: '201408933K',
+    legalName: 'Horizon Precision Engineering Pte. Ltd.',
+    tradeName: 'Horizon Precision',
+    industry: 'Precision Engineering & Manufacturing',
+    ssicCode: '25992',
+    ssicDescription: 'Manufacture of metal precision components and CNC fabrication',
+    incorporationDate: '2014-04-02',
+    paidUpCapital: 'SGD 500,000',
+    registeredAddress: '24 Tuas Avenue 8, Singapore 639238',
+    postalCode: '639238',
+    employeeCount: 45,
+    annualRevenue: 'SGD 5,600,000',
+    contactPersonName: 'Vincent Koh Teck Seng',
+    contactDesignation: 'Executive Director',
+    contactEmail: 'vincent.koh@horizonprecision.sg',
+    contactPhone: '+65 9654 1122',
+    status: 'Active Advisory',
+    assignedAdvisorId: 'adv-001',
+    assignedAdvisorName: 'Marcus Tan Eng Hwee',
+    sgpVerified: true,
+    tags: ['Industry 4.0', 'Smart Factory', 'EDG Automation'],
+    notes: 'Consultation focused on transition to 5-axis robotic CNC machining cells to combat skilled labor shortage.',
+    createdAt: '2024-01-20',
+    updatedAt: '2024-10-05'
+  },
+  {
+    id: 'sme-004',
+    uen: '201934012W',
+    legalName: 'SingaFlow Logistics & Freight Pte. Ltd.',
+    tradeName: 'SingaFlow Supply Chain',
+    industry: 'Logistics & Supply Chain',
+    ssicCode: '52291',
+    ssicDescription: 'Freight forwarding, packing and crating services',
+    incorporationDate: '2019-11-27',
+    paidUpCapital: 'SGD 150,000',
+    registeredAddress: '7 Greenwich Drive, #04-02 DHL Supply Chain Hub, Singapore 533864',
+    postalCode: '533864',
+    employeeCount: 22,
+    annualRevenue: 'SGD 2,400,000',
+    contactPersonName: 'Ahmad Faiz Bin Roslan',
+    contactDesignation: 'Managing Director',
+    contactEmail: 'faiz@singaflow.sg',
+    contactPhone: '+65 9345 6789',
+    status: 'Active Advisory',
+    assignedAdvisorId: 'adv-002',
+    assignedAdvisorName: 'Sarah Lim Shu Min',
+    sgpVerified: true,
+    tags: ['Logistics', 'WMS', 'Cross-Border MRA'],
+    notes: 'Evaluating Market Readiness Assistance (MRA) for entering Johor Bahru & Batam logistics hub.',
+    createdAt: '2024-05-12',
+    updatedAt: '2024-09-15'
+  },
+  {
+    id: 'sme-005',
+    uen: '202109483R',
+    legalName: 'CleanVolt Energy SG Pte. Ltd.',
+    tradeName: 'CleanVolt Mobility',
+    industry: 'Clean Energy & Green Tech',
+    ssicCode: '35102',
+    ssicDescription: 'Generation and retail of electricity from solar and renewable sources',
+    incorporationDate: '2021-03-15',
+    paidUpCapital: 'SGD 300,000',
+    registeredAddress: '80 Robinson Road, #14-02, Singapore 068898',
+    postalCode: '068898',
+    employeeCount: 14,
+    annualRevenue: 'SGD 1,400,000',
+    contactPersonName: 'Jessica Tan Mei Ling',
+    contactDesignation: 'Chief Technology Officer',
+    contactEmail: 'jessica@cleanvolt.sg',
+    contactPhone: '+65 9234 8899',
+    status: 'Pending Review',
+    assignedAdvisorId: 'adv-004',
+    assignedAdvisorName: 'Nurul Huda Binte Rahim',
+    sgpVerified: true,
+    tags: ['Sustainability', 'Solar EV', 'Standards Adoption'],
+    notes: 'Exploring Enterprise Development Grant for ISO 14001 certification and regional solar monitoring architecture.',
+    createdAt: '2024-06-01',
+    updatedAt: '2024-09-20'
+  }
+];
+
+export const INITIAL_LEADS: Lead[] = [
+  {
+    id: 'lead-101',
+    companyId: 'sme-001',
+    companyName: 'Apex BioTech Solutions Pte. Ltd.',
+    uen: '201827491G',
+    contactName: 'Dr. Raymond Chen',
+    contactEmail: 'raymond.chen@apexbio.com.sg',
+    contactPhone: '+65 9123 4567',
+    stage: 'grant_scoping',
+    priority: 'high',
+    targetGrant: 'Enterprise Development Grant (EDG - Innovation & Productivity)',
+    estimatedGrantValue: 90000,
+    readinessScore: 88,
+    assignedAdvisorId: 'adv-002',
+    assignedAdvisorName: 'Sarah Lim Shu Min',
+    source: 'Enterprise SG Referral',
+    nextFollowUpDate: '2024-10-12',
+    lastContactedAt: '2024-10-02',
+    notes: 'Drafting project proposal for pilot bioreactor line with external certified consultant.',
+    createdAt: '2024-08-10',
+    updatedAt: '2024-10-02'
+  },
+  {
+    id: 'lead-102',
+    companyId: 'sme-002',
+    companyName: 'Bread & Butter Culinary Pte. Ltd.',
+    uen: '201712849G',
+    contactName: 'Clara Ong Hui Lin',
+    contactEmail: 'clara.ong@artisanoven.sg',
+    contactPhone: '+65 9876 5432',
+    stage: 'application',
+    priority: 'high',
+    targetGrant: 'Productivity Solutions Grant (PSG - Pre-Scoped Bakery Equipment)',
+    estimatedGrantValue: 35000,
+    readinessScore: 92,
+    assignedAdvisorId: 'adv-003',
+    assignedAdvisorName: 'Kenneth Goh Wei Liang',
+    source: 'Walk-in',
+    nextFollowUpDate: '2024-10-09',
+    lastContactedAt: '2024-09-28',
+    notes: 'Business Grant Portal (BGP) application drafted. Awaiting official quotation from certified equipment vendor.',
+    createdAt: '2024-08-22',
+    updatedAt: '2024-09-28'
+  },
+  {
+    id: 'lead-103',
+    companyId: 'sme-003',
+    companyName: 'Horizon Precision Engineering Pte. Ltd.',
+    uen: '201408933K',
+    contactName: 'Vincent Koh Teck Seng',
+    contactEmail: 'vincent.koh@horizonprecision.sg',
+    contactPhone: '+65 9654 1122',
+    stage: 'diagnostic',
+    priority: 'medium',
+    targetGrant: 'Enterprise Development Grant (EDG - Automation & Industry 4.0)',
+    estimatedGrantValue: 120000,
+    readinessScore: 74,
+    assignedAdvisorId: 'adv-001',
+    assignedAdvisorName: 'Marcus Tan Eng Hwee',
+    source: 'Partner Trade Association',
+    nextFollowUpDate: '2024-10-14',
+    lastContactedAt: '2024-10-05',
+    notes: 'Completed operational diagnostic questionnaire. Identified 4 key bottleneck processes in CNC workshop.',
+    createdAt: '2024-09-02',
+    updatedAt: '2024-10-05'
+  },
+  {
+    id: 'lead-104',
+    companyId: 'sme-004',
+    companyName: 'SingaFlow Logistics & Freight Pte. Ltd.',
+    uen: '201934012W',
+    contactName: 'Ahmad Faiz Bin Roslan',
+    contactEmail: 'faiz@singaflow.sg',
+    contactPhone: '+65 9345 6789',
+    stage: 'inquiry',
+    priority: 'medium',
+    targetGrant: 'Market Readiness Assistance (MRA - Regional Expansion)',
+    estimatedGrantValue: 40000,
+    readinessScore: 65,
+    assignedAdvisorId: 'adv-002',
+    assignedAdvisorName: 'Sarah Lim Shu Min',
+    source: 'Online Portal',
+    nextFollowUpDate: '2024-10-10',
+    lastContactedAt: '2024-09-15',
+    notes: 'Initial inquiry regarding setup of bonded warehouse entity in Iskandar Malaysia.',
+    createdAt: '2024-09-15',
+    updatedAt: '2024-09-15'
+  },
+  {
+    id: 'lead-105',
+    companyId: 'sme-005',
+    companyName: 'CleanVolt Energy SG Pte. Ltd.',
+    uen: '202109483R',
+    contactName: 'Jessica Tan Mei Ling',
+    contactEmail: 'jessica@cleanvolt.sg',
+    contactPhone: '+65 9234 8899',
+    stage: 'diagnostic',
+    priority: 'low',
+    targetGrant: 'Enterprise Development Grant (Standards Adoption & Sustainability)',
+    estimatedGrantValue: 50000,
+    readinessScore: 58,
+    assignedAdvisorId: 'adv-004',
+    assignedAdvisorName: 'Nurul Huda Binte Rahim',
+    source: 'Online Portal',
+    nextFollowUpDate: '2024-10-16',
+    lastContactedAt: '2024-09-20',
+    notes: 'Client exploring carbon accounting standards and local renewable energy credit verification.',
+    createdAt: '2024-09-20',
+    updatedAt: '2024-09-20'
+  }
+];
+
+export const INITIAL_MEETING_NOTES: MeetingNote[] = [
+  {
+    id: 'mtg-001',
+    companyId: 'sme-001',
+    companyName: 'Apex BioTech Solutions Pte. Ltd.',
+    uen: '201827491G',
+    advisorId: 'adv-002',
+    advisorName: 'Sarah Lim Shu Min',
+    meetingTitle: 'EDG Capability Upgrading & Automation Scoping',
+    meetingDate: '2024-10-02 10:30',
+    durationMinutes: 45,
+    channel: 'Zoom Video',
+    zoomMeetingUrl: 'https://zoom.us/j/8119204389?pwd=sme-advisory-apex',
+    attendees: ['Sarah Lim Shu Min (SME Centre)', 'Dr. Raymond Chen (Apex BioTech)', 'Karen Ng (Finance Lead)'],
+    rawTranscript: `Sarah Lim: Good morning Dr. Chen, thank you for joining our SME Centre consultation today. Let's review Apex BioTech's plans for scaling your lab manufacturing capabilities.
+Dr. Raymond Chen: Thanks Sarah. As discussed, our manual assay testing currently takes 6 technicians over 4 hours per batch. We are hitting capacity limits and losing export deals to Vietnam and Thailand.
+Sarah Lim: Understood. Under the Enterprise Development Grant (EDG), Innovation and Productivity pillar, we can co-fund up to 50% of the qualifying automated liquid dispensing system and integrated LIMS software.
+Dr. Raymond Chen: That would be a game-changer for our cash flow. We were worried about the capital outlay of SGD 180,000.
+Sarah Lim: Have you obtained quotations from Enterprise Singapore-recognized vendors or certified management consultants?
+Dr. Raymond Chen: We have two quotations from local precision lab equipment suppliers. One includes API integration with our existing ERP.
+Sarah Lim: Excellent. Let's make sure the project proposal clearly demonstrates at least a 30% productivity gain and upskilling of your existing 6 laboratory technicians to data analysis roles.`,
+    executiveSummary: 'Comprehensive consultation regarding EDG application under Innovation & Productivity. Apex BioTech intends to automate manual assay dispensing to resolve severe export capacity bottlenecks. Estimated project size SGD 180,000 with up to 50% Enterprise Singapore co-funding.',
+    keyDiscussionPoints: [
+      'Current manual assay batch processing restricts lab turnaround to 4 hours per run, causing lost overseas orders.',
+      'Proposed automated liquid dispensing robotic workstation will increase batch throughput by 3.5x.',
+      '6 lab technicians will be redeployed and upskilled into QA and bioinformatics data verification roles via Career Conversion Programme.',
+      'SME Centre advisor will assist in reviewing the Business Grant Portal (BGP) project proposal and financial documentation.'
+    ],
+    sentimentScore: 86,
+    sentimentTone: 'Receptive & Growth-Oriented',
+    sentimentObservations: 'Client is highly enthusiastic about scaling capacity and receptive to grant eligibility criteria. Showed mild initial caution regarding consultant selection and audit timelines.',
+    actionItems: [
+      {
+        id: 'act-001',
+        task: 'Compile 3 comparative equipment quotations and vendor scopes of work',
+        owner: 'Dr. Raymond Chen (Apex BioTech)',
+        dueDate: '2024-10-12',
+        completed: false,
+        priority: 'high'
+      },
+      {
+        id: 'act-002',
+        task: 'Send BGP project proposal template and productivity measurement matrix to client',
+        owner: 'Sarah Lim Shu Min (SME Centre)',
+        dueDate: '2024-10-05',
+        completed: true,
+        priority: 'high'
+      },
+      {
+        id: 'act-003',
+        task: 'Confirm latest 3 years audited financial statements and ACRA business profile',
+        owner: 'Karen Ng (Finance)',
+        dueDate: '2024-10-10',
+        completed: false,
+        priority: 'medium'
+      }
+    ],
+    grantRecommendations: [
+      {
+        name: 'Enterprise Development Grant (EDG) - Innovation & Productivity',
+        administeringAgency: 'Enterprise Singapore',
+        supportCoverage: 'Co-funding up to 50% of qualifying third-party consultancy and equipment costs',
+        eligibilityNotes: 'Requires >30% local shareholding and viable productivity milestone roadmap.',
+        recommendedScope: 'Automated liquid handling system and LIMS integration.'
+      },
+      {
+        name: 'SkillsFuture Enterprise Credit (SFEC)',
+        administeringAgency: 'SkillsFuture Singapore',
+        supportCoverage: 'One-off SGD 10,000 credit for enterprise transformation & workforce reskilling',
+        eligibilityNotes: 'Apex BioTech qualifies with CPF contributions for 18 local employees.',
+        recommendedScope: 'Covering training fees for lab technician upskilling.'
+      }
+    ],
+    sgpDataAttached: true,
+    pdfExportedAt: '2024-10-02 11:45',
+    createdAt: '2024-10-02 11:20'
+  }
+];
+
+export const INITIAL_FOLLOW_UPS: FollowUpAutomation[] = [
+  {
+    id: 'fup-001',
+    name: 'Day 3 Post-Consultation Action Plan Dispatch',
+    description: 'Automatically dispatches meeting minutes summary and customized grant action checklist to SME founder via Outlook.',
+    triggerEvent: 'Post-Advisory Consultation',
+    delayDays: 3,
+    channel: 'Outlook Email',
+    emailSubjectTemplate: 'Follow-up from SME Centre Advisory Session - {{company_name}} Next Steps',
+    emailBodyTemplate: 'Dear {{contact_name}},\n\nThank you for meeting with SME Centre regarding {{company_name}}. As discussed during our consultation, please review the attached advisory minutes and recommended grant roadmap.\n\nNext immediate milestone: Submission of vendor quotations for {{target_grant}}.\n\nBest regards,\n{{advisor_name}}\nSME Centre Business Advisor',
+    active: true,
+    lastRun: '2024-10-05',
+    sendsCount: 48
+  },
+  {
+    id: 'fup-002',
+    name: 'Day 14 Business Grants Portal (BGP) Quotation Reminder',
+    description: 'Alerts advisor and sends check-in email if required vendor quotations have not been received 14 days after scoping.',
+    triggerEvent: 'Grant Submission Due',
+    delayDays: 14,
+    channel: 'Outlook Email',
+    emailSubjectTemplate: 'Reminder: Vendor Quotations & Proposal for {{target_grant}}',
+    emailBodyTemplate: 'Dear {{contact_name}},\n\nJust checking in on the progress of your comparative quotations for your capability upgrading project. Let us know if you need assistance reviewing the vendor scopes before formal submission on BGP.\n\nWarm regards,\n{{advisor_name}}',
+    active: true,
+    lastRun: '2024-10-04',
+    sendsCount: 31
+  },
+  {
+    id: 'fup-003',
+    name: 'Day 30 Diagnostic Re-Engagement',
+    description: 'Checks in with inactive SME leads who conducted initial diagnostic but have not lodged grant scoping.',
+    triggerEvent: 'Lead Inactive 7 Days',
+    delayDays: 30,
+    channel: 'Advisor Task Alert',
+    emailSubjectTemplate: 'Checking in on {{company_name}} Transformation Roadmap',
+    emailBodyTemplate: 'Hi {{contact_name}}, following up on our SME Centre diagnostic discussion. We would love to schedule a quick 20-min Zoom call to unblock your project application.',
+    active: true,
+    lastRun: '2024-10-01',
+    sendsCount: 19
+  }
+];
+
+export const INITIAL_COMMUNICATIONS: CommunicationLog[] = [
+  {
+    id: 'comm-001',
+    companyId: 'sme-001',
+    companyName: 'Apex BioTech Solutions Pte. Ltd.',
+    advisorId: 'adv-002',
+    advisorName: 'Sarah Lim Shu Min',
+    type: 'outlook_email',
+    subject: 'Minutes of Meeting & EDG Checklist - Apex BioTech',
+    content: 'Attached official PDF advisory minutes and Enterprise Development Grant checklist for your reference.',
+    timestamp: '2024-10-02 11:50',
+    direction: 'outbound',
+    status: 'read'
+  },
+  {
+    id: 'comm-002',
+    companyId: 'sme-001',
+    companyName: 'Apex BioTech Solutions Pte. Ltd.',
+    advisorId: 'adv-002',
+    advisorName: 'Sarah Lim Shu Min',
+    type: 'zoom_meeting',
+    subject: '45-min Zoom Consultation: Capability Upgrading Scoping',
+    content: 'Completed Zoom consultation. Discussed automation, LIMS integration, and BGP submission requirements.',
+    timestamp: '2024-10-02 10:30',
+    direction: 'outbound',
+    status: 'delivered'
+  },
+  {
+    id: 'comm-003',
+    companyId: 'sme-002',
+    companyName: 'Bread & Butter Culinary Pte. Ltd.',
+    advisorId: 'adv-003',
+    advisorName: 'Kenneth Goh Wei Liang',
+    type: 'outlook_email',
+    subject: 'PSG Pre-scoped Bakery Solutions Vendor List',
+    content: 'Sent pre-approved vendor list and funding cap breakdown (up to 50% support) for automated dough equipment.',
+    timestamp: '2024-09-29 14:15',
+    direction: 'outbound',
+    status: 'delivered'
+  }
+];
+
+// Rich Singapore Business Directory authentic records (SGP Business / ACRA)
+export const SGP_DIRECTORY_DATABASE: SgpDirectoryEntity[] = [
+  {
+    uen: '201827491G',
+    entityName: 'APEX BIOTECH SOLUTIONS PTE. LTD.',
+    entityStatus: 'Live Company',
+    entityType: 'Exempt Private Company Limited by Shares',
+    ssicCode: '72101',
+    ssicDescription: 'Research and experimental development on biotechnology, life and medical sciences',
+    incorporationDate: '14 August 2018',
+    paidUpCapital: 'SGD 250,000.00',
+    registeredAddress: '11 BIOPOLIS WAY, #06-03 HELIOS, SINGAPORE 138667',
+    postalCode: '138667',
+    keyOfficers: [
+      { name: 'CHEN WEI RAYMOND', designation: 'Managing Director' },
+      { name: 'LIM KENG BOON', designation: 'Director & Company Secretary' }
+    ],
+    sourceUrl: 'https://www.sgpbusiness.com/company/Apex-Biotech-Solutions-Pte-Ltd',
+    verifiedFromDirectory: true
+  },
+  {
+    uen: '201712849G',
+    entityName: 'BREAD & BUTTER CULINARY PTE. LTD.',
+    entityStatus: 'Live Company',
+    entityType: 'Private Company Limited by Shares',
+    ssicCode: '10712',
+    ssicDescription: 'Manufacture of bread, cakes and confectionery (wholesale)',
+    incorporationDate: '19 May 2017',
+    paidUpCapital: 'SGD 100,000.00',
+    registeredAddress: '18 CHIN BEE AVENUE, #03-01 FOODAXIS, SINGAPORE 619934',
+    postalCode: '619934',
+    keyOfficers: [
+      { name: 'CLARA ONG HUI LIN', designation: 'Director' },
+      { name: 'TAN JIAN WEI', designation: 'Director' }
+    ],
+    sourceUrl: 'https://www.sgpbusiness.com/company/Bread-Butter-Culinary-Pte-Ltd',
+    verifiedFromDirectory: true
+  },
+  {
+    uen: '201408933K',
+    entityName: 'HORIZON PRECISION ENGINEERING PTE. LTD.',
+    entityStatus: 'Live Company',
+    entityType: 'Private Company Limited by Shares',
+    ssicCode: '25992',
+    ssicDescription: 'Manufacture of metal precision components and CNC fabrication',
+    incorporationDate: '02 April 2014',
+    paidUpCapital: 'SGD 500,000.00',
+    registeredAddress: '24 TUAS AVENUE 8, SINGAPORE 639238',
+    postalCode: '639238',
+    keyOfficers: [
+      { name: 'VINCENT KOH TECK SENG', designation: 'Managing Director' },
+      { name: 'KOH BOON HENG', designation: 'Director' }
+    ],
+    sourceUrl: 'https://www.sgpbusiness.com/company/Horizon-Precision-Engineering-Pte-Ltd',
+    verifiedFromDirectory: true
+  },
+  {
+    uen: '201934012W',
+    entityName: 'SINGAFLOW LOGISTICS & FREIGHT PTE. LTD.',
+    entityStatus: 'Live Company',
+    entityType: 'Private Company Limited by Shares',
+    ssicCode: '52291',
+    ssicDescription: 'Freight forwarding, packing and crating services',
+    incorporationDate: '27 November 2019',
+    paidUpCapital: 'SGD 150,000.00',
+    registeredAddress: '7 GREENWICH DRIVE, #04-02 DHL SUPPLY CHAIN HUB, SINGAPORE 533864',
+    postalCode: '533864',
+    keyOfficers: [
+      { name: 'AHMAD FAIZ BIN ROSLAN', designation: 'Director' },
+      { name: 'ZULKIFLI BIN HASSAN', designation: 'Director' }
+    ],
+    sourceUrl: 'https://www.sgpbusiness.com/company/Singaflow-Logistics-Freight-Pte-Ltd',
+    verifiedFromDirectory: true
+  },
+  {
+    uen: '202109483R',
+    entityName: 'CLEANVOLT ENERGY SG PTE. LTD.',
+    entityStatus: 'Live Company',
+    entityType: 'Exempt Private Company Limited by Shares',
+    ssicCode: '35102',
+    ssicDescription: 'Generation and retail of electricity from solar and renewable sources',
+    incorporationDate: '15 March 2021',
+    paidUpCapital: 'SGD 300,000.00',
+    registeredAddress: '80 ROBINSON ROAD, #14-02, SINGAPORE 068898',
+    postalCode: '068898',
+    keyOfficers: [
+      { name: 'JESSICA TAN MEI LING', designation: 'Director' },
+      { name: 'DAVID WEE TECK CHUAN', designation: 'Director' }
+    ],
+    sourceUrl: 'https://www.sgpbusiness.com/company/Cleanvolt-Energy-Sg-Pte-Ltd',
+    verifiedFromDirectory: true
+  },
+  {
+    uen: '201502941E',
+    entityName: 'NEXA RETAIL TECHNOLOGIES PTE. LTD.',
+    entityStatus: 'Live Company',
+    entityType: 'Private Company Limited by Shares',
+    ssicCode: '62011',
+    ssicDescription: 'Development of software and e-commerce retail infrastructure',
+    incorporationDate: '08 February 2015',
+    paidUpCapital: 'SGD 400,000.00',
+    registeredAddress: '1 FUSIONOPOLIS WAY, #12-10 CONNEXIS, SINGAPORE 138632',
+    postalCode: '138632',
+    keyOfficers: [
+      { name: 'SEAN WONG ZHI HAO', designation: 'CEO & Director' },
+      { name: 'EVELYN NEO PEI LING', designation: 'Director' }
+    ],
+    sourceUrl: 'https://www.sgpbusiness.com/company/Nexa-Retail-Technologies-Pte-Ltd',
+    verifiedFromDirectory: true
+  }
+];
